@@ -10,6 +10,7 @@ import { toast } from '@/components/ui/use-toast';
 import { apiClient } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -109,6 +110,16 @@ export default function Login() {
               </Button>
             </form>
           </Form>
+
+          <div className="mt-4">
+            <GoogleSignInButton
+              onSuccess={(res) => {
+                login(res);
+                toast({ title: 'Signed in with Google', description: `Welcome, ${res.firstname}` });
+                navigate('/');
+              }}
+            />
+          </div>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">

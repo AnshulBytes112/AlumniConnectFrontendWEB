@@ -10,6 +10,7 @@ import { toast } from '@/components/ui/use-toast';
 import { apiClient } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 const signupSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
@@ -228,6 +229,15 @@ export default function Signup() {
                 Sign in
               </Link>
             </p>
+          </div>
+          <div className="mt-4">
+            <GoogleSignInButton
+              onSuccess={(res) => {
+                login(res);
+                toast({ title: 'Signed in with Google', description: `Welcome, ${res.firstname}` });
+                navigate('/');
+              }}
+            />
           </div>
         </div>
       </div>

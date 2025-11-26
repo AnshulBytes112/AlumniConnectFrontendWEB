@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api'; // Update this to your backend URL
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || 'http://localhost:8080/api'; // Uses Vite env var or fallback
 
 export interface SignUpRequest {
   firstName: string;
@@ -104,3 +104,8 @@ class ApiClient {
 }
 
 export const apiClient = new ApiClient(API_BASE_URL);
+
+export function setApiBaseUrl(url: string) {
+  // helper to change base url at runtime if needed
+  (apiClient as any).baseUrl = url;
+}
