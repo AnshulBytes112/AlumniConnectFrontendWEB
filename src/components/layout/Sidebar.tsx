@@ -23,7 +23,7 @@ export function Sidebar() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 pointer-events-none ">
+    <div className="fixed top-0 left-5 w-full z-50 pointer-events-none ">
       <div className="pointer-events-auto">
         <PillNav
           logo="https://cdn-icons-png.flaticon.com/512/2997/2997295.png" // Placeholder logo or use local asset
