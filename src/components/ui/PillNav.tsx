@@ -6,6 +6,8 @@ interface NavItem {
   label: string;
   href: string;
   ariaLabel?: string;
+  onClick?: () => void;
+  hoverColor?: string;
 }
 
 interface PillNavProps {
@@ -248,10 +250,10 @@ const PillNav = ({
     '--pill-bg': pillColor,
     '--hover-text': hoveredPillTextColor,
     '--pill-text': resolvedPillTextColor,
-    '--nav-h': '42px',
-    '--logo': '36px',
-    '--pill-pad-x': '18px',
-    '--pill-gap': '3px'
+    '--nav-h': '36px',
+    '--logo': '30px',
+    '--pill-pad-x': '14px',
+    '--pill-gap': '2px'
   } as CSSProperties;
 
   return (
@@ -336,7 +338,7 @@ const PillNav = ({
                   <span
                     className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none"
                     style={{
-                      background: 'var(--base, #000)',
+                      background: item.hoverColor || 'var(--base, #000)',
                       willChange: 'transform'
                     }}
                     aria-hidden="true"
@@ -373,11 +375,26 @@ const PillNav = ({
               );
 
               const basePillClasses =
-                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
+                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[14px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
 
               return (
                 <li key={item.href} role="none" className="flex h-full">
-                  {isRouterLink(item.href) ? (
+                  {item.onClick ? (
+                    <button
+                      role="menuitem"
+                      onClick={(e) => {
+                        item.onClick?.();
+                        handleLogoClick(e);
+                      }}
+                      className={basePillClasses}
+                      style={pillStyle}
+                      aria-label={item.ariaLabel || item.label}
+                      onMouseEnter={() => handleEnter(i)}
+                      onMouseLeave={() => handleLeave(i)}
+                    >
+                      {PillContent}
+                    </button>
+                  ) : isRouterLink(item.href) ? (
                     <Link
                       role="menuitem"
                       to={item.href}
@@ -435,7 +452,7 @@ const PillNav = ({
             };
 
             const linkClasses =
-              'block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]';
+              'block py-3 px-4 text-[14px] font-medium rounded-[50px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]';
 
             return (
               <li key={item.href}>

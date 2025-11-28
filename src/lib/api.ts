@@ -1,3 +1,5 @@
+import { mockCredentials } from '@/data/mockData';
+
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || 'http://localhost:8080/api'; // Uses Vite env var or fallback
 
 export interface SignUpRequest {
@@ -73,6 +75,13 @@ class ApiClient {
     }
 
     async login(data: LoginRequest): Promise<AuthResponse> {
+        // Mock Bypass
+        if (data.email.trim() === mockCredentials.email && data.password.trim() === mockCredentials.password) {
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(mockCredentials.user), 500);
+            });
+        }
+
         const response = await fetch(`${this.baseUrl}/auth/login`, {
             method: 'POST',
             headers: this.getHeaders(),

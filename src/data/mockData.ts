@@ -89,3 +89,16 @@ export const dashboardJobApplications = [
     { company: 'Amazon', role: 'Full Stack Dev', status: 'Rejected', date: '2024-02-15' },
     { company: 'Netflix', role: 'Senior UI Engineer', status: 'Applied', date: '2024-03-10' },
 ];
+
+export const mockCredentials = {
+    email: 'test@example.com',
+    password: 'password123',
+    user: {
+        id: 'mock-user-id',
+        email: 'test@example.com',
+        firstname: 'Test',
+        lastname: 'User',
+        profilePicture: null,
+        jwtToken: 'mock-jwt-token',
+    }
+};
